@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default HorizontalRow = (props) => {
-  return;
+export default function HorizontalRow(props) {
+  return(
+    <div className="HorizontalRow" />
+  );
 }

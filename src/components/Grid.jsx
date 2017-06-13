@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import HorizontalRow from './horizontal/HorizontalRow.jsx';
+import VerticalRow from './vertical/VerticalRow.jsx';
 
 export default class Grid extends Component {
   constructor(props) {
@@ -147,8 +149,28 @@ export default class Grid extends Component {
     }
   }
   render() {
+    var rows = () => {
+      var rowArray = [];
+      var _playGrid = this.state.playGrid;
+      for(var i = 0; i < _playGrid.length - 1; i += 2) {
+        rowArray.push(
+          <HorizontalRow key={"row" + i} row={this.state.playGrid[i]} />
+        );
+        rowArray.push(
+          <VerticalRow key={"row" + (i + 1)}row={this.state.playGrid[i]} />
+        );
+      }
+      rowArray.push(
+        <HorizontalRow key={"row" + i} row={this.state.playGrid[i]} />
+      );
+
+      return rowArray;
+    };
+
     return(
-      <div />
+      <div>
+        {rows()}
+      </div>
     );
   }
 }
