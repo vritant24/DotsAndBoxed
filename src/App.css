@@ -4,6 +4,7 @@ body, html {
 }
 .Grid {
   margin: 0 auto;
+  border-spacing: 1px;
 }
 
 .HorizontalRow {
@@ -40,7 +41,7 @@ body, html {
 }
 
 .L1 {
-  background: black;
+  background: #222;
 }
 
 .P0 {

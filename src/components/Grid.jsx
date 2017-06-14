@@ -52,8 +52,8 @@ export default class Grid extends Component {
       //check if no more moves can be made
       if(this.checkGameOver()) {
         this.props.gameOver();
-        return;
       }
+      return;
     }
     //next player's turn
     this.props.nextPlayer();

@@ -52,6 +52,7 @@ export default class DotsAndBoxes extends Component {
     });
     return(
       <div>
+        <h1>player {this.state.currentPlayer} turn</h1>
         <div className= "Scores">
           {scores}
         </div>
