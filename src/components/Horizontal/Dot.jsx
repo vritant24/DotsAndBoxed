@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default dot = (props) => {
-  return;
+export default function Dot(props) {
+  return(
+    <td className="Dot" />
+  );
 }

@@ -11,7 +11,13 @@ export default class Grid extends Component {
     this.state = {
       playGrid: this.setUpPlayGrid(),
       currentPlayer: props.currentPlayer
-    }
+    };
+  }
+  componentWillReceiveProps(nextProps) {
+    //TODO setup new game
+    this.setState({
+      currentPlayer: nextProps.currentPlayer
+    });
   }
   setUpPlayGrid() {
     var matrix = [];
@@ -28,6 +34,7 @@ export default class Grid extends Component {
     return matrix;
   }
   playMove(x, y) {
+    console.log(x + " " + y);
     //check if already played
     if(this.state.playGrid[x][y] !== 0) {
       return;
@@ -149,28 +156,30 @@ export default class Grid extends Component {
     }
   }
   render() {
-    var rows = () => {
+    var rows = (() => {
       var rowArray = [];
       var _playGrid = this.state.playGrid;
       for(var i = 0; i < _playGrid.length - 1; i += 2) {
         rowArray.push(
-          <HorizontalRow key={"row" + i} row={this.state.playGrid[i]} />
+          <HorizontalRow key={"row" + i} row={this.state.playGrid[i]} playMove={this.playMove.bind(this, i)}/>
         );
         rowArray.push(
-          <VerticalRow key={"row" + (i + 1)}row={this.state.playGrid[i]} />
+          <VerticalRow key={"row" + (i + 1)} row={this.state.playGrid[i]} />
         );
       }
       rowArray.push(
-        <HorizontalRow key={"row" + i} row={this.state.playGrid[i]} />
+        <HorizontalRow key={"row" + i} row={this.state.playGrid[i]} playMove={this.playMove.bind(this, i)}/>
       );
 
       return rowArray;
-    };
+    })();
 
     return(
-      <div>
-        {rows()}
-      </div>
+      <table>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
     );
   }
 }
