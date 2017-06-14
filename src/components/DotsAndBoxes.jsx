@@ -9,21 +9,32 @@ export default class DotsAndBoxes extends Component {
       numPlayers: 2,
       score: [],
       gridSize: {
-        row: 10,
-        col: 10
+        row: 8,
+        col: 8
       },
       gameOver: false
     };
   }
+  componentWillMount() {
+    var score = [];
+    for(var i = 0; i < this.state.numPlayers; i++) {
+      score.push(0);
+    }
+    this.setState({
+      score
+    });
+  }
   nextPlayer() {
-    var nextPlayer = 1 + ((this.state.currentPlayer + 1) % this.state.numPlayers)
+    var nextPlayer = ((this.state.currentPlayer + 1) % (this.state.numPlayers + 1));
+    nextPlayer = (nextPlayer === 0) ? 1 : nextPlayer;
     this.setState({
       currentPlayer: nextPlayer
     });
   }
   incrementScore(player) {
+    player = player - 1;
     var _score = this.state.score.slice();
-    _score[player]++;
+    ++_score[player];
     this.setState({
       score: _score
     });
@@ -34,9 +45,19 @@ export default class DotsAndBoxes extends Component {
     });
   }
   render() {
+    var scores = this.state.score.map((points, index) => {
+    return (
+        <span className="PlayerScore" key={index}>{points}</span>
+      );
+    });
     return(
       <div>
-        <Grid gameOver={this.gameOver.bind(this)} nextPlayer={this.nextPlayer.bind(this)} incrementScore={this.incrementScore.bind(this)} gridSize={this.state.gridSize} numPlayers={this.state.numPlayers}/>
+        <div className= "Scores">
+          {scores}
+        </div>
+        <Grid gameOver={this.gameOver.bind(this)} nextPlayer={this.nextPlayer.bind(this)}
+        incrementScore={this.incrementScore.bind(this)} gridSize={this.state.gridSize}
+        numPlayers={this.state.numPlayers} currentPlayer={this.state.currentPlayer}/>
       </div>
     );
   }

@@ -7,9 +7,14 @@ export default class HorizontalLine extends Component {
       cell: props.cell
     };
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      cell: nextProps.cell
+    });
+  }
   render() {
     return (
-      <td className={"HorizontalLine" + this.state.cell} onClick={this.props.makeLine}/>
+      <td className={"HorizontalLine L" + this.state.cell} onClick={this.props.makeLine}/>
     );
   }
 }
