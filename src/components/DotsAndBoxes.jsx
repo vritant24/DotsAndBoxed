@@ -9,13 +9,29 @@ export default class DotsAndBoxes extends Component {
       numPlayers: 2,
       score: [],
       gridSize: {
-        row: 8,
-        col: 8
+        row: 1,
+        col: 1
       },
       gameOver: false
     };
   }
   componentWillMount() {
+    this.setScores();
+  }
+  reset = () => {
+    this.state = {
+      currentPlayer: 1,
+      numPlayers: 2,
+      score: [],
+      gridSize: {
+        row: 7,
+        col: 8
+      },
+      gameOver: false
+    };
+    this.setScores();
+  }
+  setScores(numplayer) {
     //set up score array for n players
     var score = [];
     for(var i = 0; i < this.state.numPlayers; i++) {
@@ -59,7 +75,7 @@ export default class DotsAndBoxes extends Component {
         </div>
         <Grid gameOver={this.gameOver.bind(this)} nextPlayer={this.nextPlayer.bind(this)}
         incrementScore={this.incrementScore.bind(this)} gridSize={this.state.gridSize}
-        numPlayers={this.state.numPlayers} currentPlayer={this.state.currentPlayer}/>
+        numPlayers={this.state.numPlayers} currentPlayer={this.state.currentPlayer} reset={this.reset}/>
       </div>
     );
   }

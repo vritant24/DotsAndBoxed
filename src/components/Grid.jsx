@@ -6,18 +6,28 @@ export default class Grid extends Component {
   constructor(props) {
     super(props);
     this.gridSize = props.gridSize;
-    this.numPlayers = this.numPlayers;
+    this.numPlayers = props.numPlayers;
     this.numBoxes = 0;
     this.state = {
       playGrid: this.setUpPlayGrid(),
-      currentPlayer: props.currentPlayer
+      currentPlayer: 1
     };
   }
   componentWillReceiveProps(nextProps) {
+    this.gridSize = nextProps.gridSize;
+    this.numPlayers = nextProps.numPlayers;
     //TODO reset game
     this.setState({
       currentPlayer: nextProps.currentPlayer
     });
+  }
+  reset = () => {
+    this.setState({
+      playGrid: this.setUpPlayGrid(),
+      currentPlayer: 1
+    });
+    this.numBoxes = 0;
+    this.props.reset();
   }
   setUpPlayGrid() {
     var matrix = [];
@@ -199,11 +209,14 @@ export default class Grid extends Component {
     })();
 
     return(
-      <table className="Grid">
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
+      <div>
+        <table className="Grid">
+          <tbody>
+            {rows}
+          </tbody>
+        </table>
+        <button className="Reset" onClick={this.reset}>newGame</button>
+      </div>
     );
   }
 };
