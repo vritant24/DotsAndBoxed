@@ -38,8 +38,9 @@ export default class Grid extends Component {
     if(this.state.playGrid[x][y] !== 0) {
       return;
     }
-    //copy playgrid to not mutate state
-    var _playGrid = this.state.playGrid.slice();
+
+    //not mutate --------------------------------
+    var _playGrid = clone(this.state.playGrid);
 
     //change the the value of the cell 1
     _playGrid[x][y] = 1;
@@ -164,11 +165,12 @@ export default class Grid extends Component {
     return result;
   }
   fillBox(x, y) {
-    console.log(x + " " + y);
-    var _playGrid = this.state.playGrid.slice();
-    _playGrid[x][y] = this.state.currentPlayer;
-    this.setState({
-      playGrid: _playGrid
+
+    //done so that it doesn't interefere with the change made to playGrid in playMove
+    this.setState((prevState) => {
+      var _playGrid = clone(prevState.playGrid);
+      _playGrid[x][y] = prevState.currentPlayer;
+      return {playGrid: _playGrid};
     });
     this.numBoxes++;
   }
@@ -204,4 +206,12 @@ export default class Grid extends Component {
       </table>
     );
   }
-}
+};
+
+var clone = (array) => {
+  var newArray = array.map((item) => {
+    return item.slice();
+  });
+
+  return newArray;
+};

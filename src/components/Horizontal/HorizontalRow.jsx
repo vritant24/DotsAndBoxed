@@ -3,16 +3,15 @@ import Dot from './Dot.jsx';
 import HorizontalLine from './HorizontalLine.jsx';
 
 export default class HorizontalRow extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      row: props.row
-    };
-  }
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      row: nextProps.row
-    });
+  shouldComponentUpdate(nextProps, nextState) {
+    var _row = this.props.row;
+    var nextRow = nextProps.row;
+    for(var i = 0; i < _row.length; i++) {
+      if(_row[i] !== nextRow[i]) {
+        return true;
+      }
+    }
+    return false;
   }
   makeLine(index) {
     this.props.playMove(index);
@@ -20,13 +19,14 @@ export default class HorizontalRow extends Component {
   render() {
     var cells = (() => {
       var cellArray = [];
-      var _row = this.state.row;
+      var _row = this.props.row;
       for(var i = 0; i < _row.length - 1; i += 2) {
         cellArray.push(
           <Dot key={"cell" + i} className="Dot"/>
         );
         cellArray.push(
-          <HorizontalLine key={"cell" + i + 1} className="HorizontalLine" cell={_row[i + 1]} makeLine={this.makeLine.bind(this, (i + 1))}/>
+          <HorizontalLine key={"cell" + i + 1} className="HorizontalLine" cell={_row[i + 1]}
+          makeLine={this.makeLine.bind(this, (i + 1))}/>
         );
       }
       cellArray.push(

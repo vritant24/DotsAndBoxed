@@ -12,6 +12,9 @@ export default class HorizontalLine extends Component {
       cell: nextProps.cell
     });
   }
+  shouldComponentUpdate(nextProps) {
+    return !(this.state.cell === nextProps.cell);
+  }
   render() {
     return (
       <td className={"VerticalLine L" + this.state.cell} onClick={this.props.makeLine}/>
