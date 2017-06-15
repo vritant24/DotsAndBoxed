@@ -16,6 +16,7 @@ export default class DotsAndBoxes extends Component {
     };
   }
   componentWillMount() {
+    //set up score array for n players
     var score = [];
     for(var i = 0; i < this.state.numPlayers; i++) {
       score.push(0);
@@ -25,6 +26,7 @@ export default class DotsAndBoxes extends Component {
     });
   }
   nextPlayer() {
+    //next player's move
     var nextPlayer = ((this.state.currentPlayer + 1) % (this.state.numPlayers + 1));
     nextPlayer = (nextPlayer === 0) ? 1 : nextPlayer;
     this.setState({
@@ -32,9 +34,8 @@ export default class DotsAndBoxes extends Component {
     });
   }
   incrementScore(player) {
-    player = player - 1;
     var _score = this.state.score.slice();
-    ++_score[player];
+    ++_score[player - 1];
     this.setState({
       score: _score
     });
@@ -47,12 +48,12 @@ export default class DotsAndBoxes extends Component {
   render() {
     var scores = this.state.score.map((points, index) => {
     return (
-        <span className="PlayerScore" key={index}>{points}</span>
+        <h3 className="PlayerScore" key={index}> Player{index + 1} - {points}</h3>
       );
     });
     return(
       <div>
-        <h1>player {this.state.currentPlayer} turn</h1>
+        <h1 className={"T" + this.state.currentPlayer}>player {this.state.currentPlayer} turn</h1>
         <div className= "Scores">
           {scores}
         </div>

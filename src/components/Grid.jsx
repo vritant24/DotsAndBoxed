@@ -14,7 +14,7 @@ export default class Grid extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    //TODO setup new game
+    //TODO reset game
     this.setState({
       currentPlayer: nextProps.currentPlayer
     });
@@ -85,7 +85,6 @@ export default class Grid extends Component {
         sum2 += _playGrid[x - 1][y + 1];
       }
     }
-
     //check bottom left and right
     if(x < _playGrid.length - 1) {
       if(y > 0) {
@@ -95,14 +94,13 @@ export default class Grid extends Component {
         sum2 += _playGrid[x + 1][y + 1];
       }
     }
-
+    //check top+2 and bottom-2
     if(y > 0) {
       sum1 += _playGrid[x][y - 2];
     }
     if(y < _playGrid[0].length - 2) {
       sum2 += _playGrid[x][y + 2];
     }
-
     //fill box if point
     if(sum1 === 3) {
       //increment player's score
@@ -142,13 +140,13 @@ export default class Grid extends Component {
         sum2 += _playGrid[x + 1][y + 1];
       }
     }
+    //check left-2 and right+2
     if(x > 1) {
       sum1 += _playGrid[x - 2][y];
     }
     if(x < _playGrid.length - 2) {
       sum2 += _playGrid[x + 2][y];
     }
-
     //fill box if point
     if(sum1 === 3) {
       //increment player's score
@@ -165,7 +163,6 @@ export default class Grid extends Component {
     return result;
   }
   fillBox(x, y) {
-
     //done so that it doesn't interefere with the change made to playGrid in playMove
     this.setState((prevState) => {
       var _playGrid = clone(prevState.playGrid);
@@ -185,14 +182,17 @@ export default class Grid extends Component {
       var _playGrid = this.state.playGrid;
       for(var i = 0; i < _playGrid.length - 1; i += 2) {
         rowArray.push(
-          <HorizontalRow key={"row" + i} row={this.state.playGrid[i]} playMove={this.playMove.bind(this, i)}/>
+          <HorizontalRow key={"row" + i} row={this.state.playGrid[i]}
+          playMove={this.playMove.bind(this, i)}/>
         );
         rowArray.push(
-          <VerticalRow key={"row" + (i + 1)} row={this.state.playGrid[i + 1]} playMove={this.playMove.bind(this, (i + 1))} />
+          <VerticalRow key={"row" + (i + 1)} row={this.state.playGrid[i + 1]}
+          playMove={this.playMove.bind(this, (i + 1))} />
         );
       }
       rowArray.push(
-        <HorizontalRow key={"row" + i} row={this.state.playGrid[i]} playMove={this.playMove.bind(this, i)}/>
+        <HorizontalRow key={"row" + i} row={this.state.playGrid[i]}
+        playMove={this.playMove.bind(this, i)} />
       );
 
       return rowArray;
@@ -212,6 +212,5 @@ var clone = (array) => {
   var newArray = array.map((item) => {
     return item.slice();
   });
-
   return newArray;
 };
