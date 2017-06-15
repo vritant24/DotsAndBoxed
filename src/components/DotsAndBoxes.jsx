@@ -9,8 +9,8 @@ export default class DotsAndBoxes extends Component {
       numPlayers: 2,
       score: [],
       gridSize: {
-        row: 1,
-        col: 1
+        row: 2,
+        col: 2
       },
       gameOver: false
     };
@@ -62,6 +62,33 @@ export default class DotsAndBoxes extends Component {
     });
   }
   render() {
+    var header = (() => {
+      if(this.state.gameOver) {
+        var winner;
+        var highScore = 0;
+        var _score = this.state.score;
+        for(var i = 0; i < _score.length; i++) {
+          if(highScore < _score[i]) {
+            highScore = _score[i];
+            winner = i;
+          }
+        }
+        if(!winner) {
+          return(
+            <h1 className={"T0"}>Draw</h1>
+          );
+        } else {
+          winner++;
+          return(
+            <h1 className={"T" + winner}>player {winner} wins</h1>
+          );
+        }
+      } else {
+        return(
+          <h1 className={"T" + this.state.currentPlayer}>player {this.state.currentPlayer} turn</h1>
+        );
+      }
+    })();
     var scores = this.state.score.map((points, index) => {
     return (
         <h3 className="PlayerScore" key={index}> Player{index + 1} - {points}</h3>
@@ -69,7 +96,7 @@ export default class DotsAndBoxes extends Component {
     });
     return(
       <div>
-        <h1 className={"T" + this.state.currentPlayer}>player {this.state.currentPlayer} turn</h1>
+        {header}
         <div className= "Scores">
           {scores}
         </div>
