@@ -6,11 +6,11 @@ export default class DotsAndBoxes extends Component {
     super(props);
     this.state = {
       currentPlayer: 1,
-      numPlayers: 2,
+      numPlayers: 3,
       score: [],
       gridSize: {
-        row: 2,
-        col: 2
+        row: 5,
+        col: 6
       },
       gameOver: false
     };
@@ -19,16 +19,18 @@ export default class DotsAndBoxes extends Component {
     this.setScores();
   }
   reset = () => {
-    this.state = {
-      currentPlayer: 1,
-      numPlayers: 2,
-      score: [],
-      gridSize: {
-        row: 7,
-        col: 8
-      },
-      gameOver: false
-    };
+    this.setState((prevState) => {
+      return {
+        currentPlayer: 1,
+        numPlayers: prevState.numPlayers,
+        score: [],
+        gridSize: {
+          row: prevState.gridSize.row,
+          col: prevState.gridSize.col
+        },
+        gameOver: false
+      }
+    });
     this.setScores();
   }
   setScores(numplayer) {
@@ -80,29 +82,33 @@ export default class DotsAndBoxes extends Component {
         } else {
           winner++;
           return(
-            <h1 className={"T" + winner}>player {winner} wins</h1>
+            <h1 className={"T" + winner}>Player {winner} wins</h1>
           );
         }
       } else {
         return(
-          <h1 className={"T" + this.state.currentPlayer}>player {this.state.currentPlayer} turn</h1>
+          <h1 className={"T" + this.state.currentPlayer}>Player {this.state.currentPlayer} Turn</h1>
         );
       }
     })();
     var scores = this.state.score.map((points, index) => {
     return (
-        <h3 className="PlayerScore" key={index}> Player{index + 1} - {points}</h3>
+        <h3 className="PlayerScore" key={index}> Player {index + 1} ({points})</h3>
       );
     });
     return(
       <div>
-        {header}
-        <div className= "Scores">
-          {scores}
+        <div className="Header">
+          {header}
+          <div className= "Scores">
+            {scores}
+          </div>
         </div>
-        <Grid gameOver={this.gameOver.bind(this)} nextPlayer={this.nextPlayer.bind(this)}
-        incrementScore={this.incrementScore.bind(this)} gridSize={this.state.gridSize}
-        numPlayers={this.state.numPlayers} currentPlayer={this.state.currentPlayer} reset={this.reset}/>
+        <div className="DotsAndBoxes">
+          <Grid gameOver={this.gameOver.bind(this)} nextPlayer={this.nextPlayer.bind(this)}
+          incrementScore={this.incrementScore.bind(this)} gridSize={this.state.gridSize}
+          numPlayers={this.state.numPlayers} currentPlayer={this.state.currentPlayer} reset={this.reset}/>
+        </div>
       </div>
     );
   }

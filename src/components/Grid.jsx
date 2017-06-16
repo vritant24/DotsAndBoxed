@@ -215,7 +215,7 @@ export default class Grid extends Component {
             {rows}
           </tbody>
         </table>
-        <button className="Reset" onClick={this.reset}>newGame</button>
+        <button className="Reset" onClick={this.reset}>New Game</button>
       </div>
     );
   }

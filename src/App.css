@@ -1,65 +1,130 @@
 body, html {
   height: 100%;
   width: 100%;
+  background: #eee;
+  margin-top: 15px;
 }
+
+.DotsAndBoxes {
+  margin: 0 5px;
+}
+
+.Scores, h3 {
+    background: #b0bec5;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+h1, h3 {
+  text-align: center;
+}
+
+h3 {
+  font-size: 18px;
+  display: inline-block;
+  margin: 10px 0;
+  align-self: center;
+}
+
 .Grid {
-  margin: 0 auto;
+  margin: 40px auto;
+  border-collapse: collapse;
   border-spacing: 1px;
-}
-
-.HorizontalRow {
-
-}
-
-.HorizontalLine {
-  height: 10px;
-  width: 50px;
 }
 
 .Dot {
   height: 10px;
   width: 10px;
-  background: black;
+  background: #222;
+  border-radius: 1em;
 }
 
-.VerticalRow {
+.VerticalLine, .HorizontalLine {
+  border-radius: 1em;
+}
+
+.HorizontalLine {
+  height: 10px;
+  width: 60px;
 }
 
 .VerticalLine {
-  height: 50px;
+  height: 60px;
   width: 10px;
 }
 
 .FillerBox {
-  height: 50px;
-  width: 50px;
-  background: blue;
+  height: 60px;
+  width: 60px;
 }
 
-.L0 {
-  background: #eee;
+.L0:hover {
+  background: #aaa;
 }
 
 .L1 {
-  background: #222;
+  background: #333;
 }
 
 .P0 {
-  background: white;
+  /*background: #eee;*/
 }
 
 .P1 {
-  background: red;
+  background: #ef5350;
 }
 
 .P2 {
-  background: blue;
+  background: #42a5f5;
+}
+
+.P3 {
+  background: #66bb6a;
 }
 
 .T1 {
-  color: red;
+  color: #ef5350;
 }
 
 .T2 {
-  color: blue;
+  color: #42a5f5;
+}
+
+.T3 {
+  color: #66bb6a;
+}
+
+.Reset {
+  background: #b0bec5;
+  height: 30px;
+  width: 70px;
+  border: none;
+  outline: none;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 400px) {
+  h3 {
+    font-size: 12px;
+  }
+  .HorizontalLine {
+    height: 7px;
+    width: 50px;
+  }
+
+  .VerticalLine {
+    height: 50px;
+    width: 7px;
+  }
+  .Dot {
+    height: 7px;
+    width: 7px;
+  }
+  .FillerBox {
+    height: 50px;
+    width: 50px;
+  }
 }
